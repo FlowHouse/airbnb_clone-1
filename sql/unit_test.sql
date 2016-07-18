@@ -1,18 +1,8 @@
+-- Creating 1 user1 for the test db: test
+CREATE USER 'airbnb_user_test'@'%' IDENTIFIED BY 'test1';
 
-/* ===------------------------------------------------------------------------===
- *      Test script for Task 0, Project Unit Test - Airbnb Clone.
- *      Isolating configuration
- *
- *      by Alexandro de Oliveira, for Holberton School.
- * ===-----------------------------------------------------------------------===
- */
+-- Creating database: test
+CREATE DATABASE airbnb_test CHARACTER SET utf8 COLLATE utf8_general_ci;
 
--- Creating new user:
-CREATE USER 'airbnb_user_test'@'%' IDENTIFIED BY 'unit_test_pass'; -- anywhere
-
--- Creating new database:
-CREATE DATABASE airbnb_test  CHARACTER SET utf8 COLLATE utf8_general_ci;
-
--- Granting permissions:
-GRANT ALL PRIVILEGES ON airbnb_test.*  TO 'airbnb_user_test'@'%';
-
+-- Granting PRIVILEGES to user test
+GRANT ALL PRIVILEGES ON airbnb_dev . * TO airbnb_user_test;
