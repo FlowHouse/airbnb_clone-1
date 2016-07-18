@@ -3,11 +3,11 @@ import unittest
 import datetime
 import json
 import requests
-from app import *
+import app
 
 class BaseTest(unittest.TestCase):
 	"""docstring for BaseTest"""
-	response = requests.get('http://127.0.0.1:5555/')
+	#response = requests.get('http://127.0.0.1:5555/')
 
 	# to create a test client of app
 	def setUp(self):
