@@ -1,6 +1,8 @@
 import unittest
+import logging
 from datetime import datetime
 import json
+from app.models.base import *
 from flask_json import FlaskJSON, jsonify, JsonTestResponse
 from app import *
 
@@ -9,13 +11,13 @@ class UserTest(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
         logging.disable(logging.CRITICAL)
-        db.connect()
-        db.creat_tables([User], safe=True)
+        database.connect()
+        database.create_tables([User], safe=True)
         # cursor = database.curser()
         # cursor.execute("CREATE TABLE User")
 
     def tearDown(self):
-        db.drop_tables([User], safe=True)
+        database.drop_tables([User], safe=True)
         # cursor().execute("DROP TABLE IF EXISTS User"
         # os.close(self.app)
 
@@ -101,7 +103,7 @@ class UserTest(unittest.TestCase):
         to_dict = json.loadds(list_test.data)
         assert len(to_dict) == 1
         self.app.delete('/users/1')
-        
+
     #validate if the PUT request on a user ID => PUT /users/<user_id>:
     # def test_update(self):
 

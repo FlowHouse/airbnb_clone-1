@@ -46,7 +46,7 @@ DEBUG   = options['debug']
 HOST    = options['host']
 PORT    = options['port']
 DATABASE = {
-    'host': '158.69.78.253',
+    'host': '158.69.84.192',
     'user': options['user'],
     'database': options['db'],
     'port': 3306,
