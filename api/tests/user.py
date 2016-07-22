@@ -101,9 +101,45 @@ class UserTest(unittest.TestCase):
         to_dict = json.loadds(list_test.data)
         assert len(to_dict) == 1
         self.app.delete('/users/1')
-        
+
     #validate if the PUT request on a user ID => PUT /users/<user_id>:
-    # def test_update(self):
+    def test_update(self):
+        new_user = self.app.post('/users', data=dict (
+            first_name='first_name',
+            last_name='last_name',
+            email='email@1',
+            password='password'
+        ))
+        assert new_user.status_code == 200
+
+        #first name
+        self.app.put('/user/1', data=dict (
+            frist_name='Betty'
+        ))
+        list_test = self.app.get('/users/1')
+        assert new_user.status_code == 200
+
+        #last name
+        self.app.put('/user/1', data=dict (
+            last_name='Holberton'
+        ))
+        list_test = self.app.get('/users/1')
+        assert new_user.status_code == 200
+
+        #email
+        self.app.put('/user/1', data=dict (
+            email='betty@holberton'
+        ))
+        list_test = self.app.get('/users/1')
+        assert new_user.status_code == 200
+
+        #password
+        self.app.put('/user/1', data=dict (
+            password='holbertonschool'
+        ))
+        list_test = self.app.get('/users/1')
+        assert new_user.status_code == 200
+
 
 if __name__ == '__main__':
     unittest.main()
