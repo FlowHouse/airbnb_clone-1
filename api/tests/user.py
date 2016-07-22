@@ -69,8 +69,23 @@ class UserTest(unittest.TestCase):
         except:
             return 0
 
-    # def test_get(self):
-    #
+    def test_get(self):
+        new_user = self.app.post('/users', data=dict (
+            first_name='first_name',
+            last_name='last_name',
+            email='email@1',
+            password='password'
+        ))
+        assert new_user.status_code == 200
+        response = self.app.get('/users/1').data
+        assert sorted(response) == sorted(new_user.data)
+
+        response = self.app.get('/users/2').data
+        try:
+            json.loads(response)
+        except:
+            return "user ID not linked to a user"
+
     # def test_delete(self):
     #
     # def test_update(self):
