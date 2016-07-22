@@ -80,14 +80,25 @@ class UserTest(unittest.TestCase):
         response = self.app.get('/users/1').data
         assert sorted(response) == sorted(new_user.data)
 
+        #try unknown user 
         response = self.app.get('/users/2').data
         try:
             json.loads(response)
         except:
             return "user ID not linked to a user"
 
-    # def test_delete(self):
-    #
+    def test_delete(self):
+        new_user = self.app.post('/users', data=dict (
+            first_name='first_name',
+            last_name='last_name',
+            email='email@1',
+            password='password'
+        ))
+        list_test = self.app.get('/users')
+        to_dict = json.loadds(list_test.data)
+        assert len(to_dict) == 1
+        self.app.delete('/users/1')
+
     # def test_update(self):
 
 if __name__ == '__main__':
