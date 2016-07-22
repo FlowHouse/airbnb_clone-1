@@ -74,8 +74,14 @@ class UserTest(unittest.TestCase):
         ))
         set.assertEqual(User.select(id), 5)
 
-        #TODO
         #check if an user has unique email
+        unique_email_test = self.app.post('/users', data=dict(
+            first_name='first_name',
+            last_name='last_name',
+            email='email',
+            password='passwrod'
+            ))
+        assert unique_email_test.status == 409
 
     #validate if the GET request => GET /users:
     def test_list(self):
