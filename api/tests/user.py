@@ -19,6 +19,7 @@ class UserTest(unittest.TestCase):
         # cursor().execute("DROP TABLE IF EXISTS User"
         # os.close(self.app)
 
+        #validate if the POST request => POST /users
     def test_create(self):
         self.app.post('/users', data=dict (
             first_name='first_name',
@@ -60,7 +61,7 @@ class UserTest(unittest.TestCase):
         ))
         set.assertEqual(User.select(id), 5)
 
-
+    #validate if the GET request => GET /users:
     def test_list(self):
         list_test = self.app.get('/users')
         try:
@@ -69,6 +70,7 @@ class UserTest(unittest.TestCase):
         except:
             return 0
 
+    #validate if the GET request on a user ID => GET /users/<user_id>:
     def test_get(self):
         new_user = self.app.post('/users', data=dict (
             first_name='first_name',
@@ -80,13 +82,14 @@ class UserTest(unittest.TestCase):
         response = self.app.get('/users/1').data
         assert sorted(response) == sorted(new_user.data)
 
-        #try unknown user 
+        #try unknown user
         response = self.app.get('/users/2').data
         try:
             json.loads(response)
         except:
             return "user ID not linked to a user"
 
+    #validate if the DELETE request on a user ID => DELETE /users/<user_id>:
     def test_delete(self):
         new_user = self.app.post('/users', data=dict (
             first_name='first_name',
@@ -98,7 +101,8 @@ class UserTest(unittest.TestCase):
         to_dict = json.loadds(list_test.data)
         assert len(to_dict) == 1
         self.app.delete('/users/1')
-
+        
+    #validate if the PUT request on a user ID => PUT /users/<user_id>:
     # def test_update(self):
 
 if __name__ == '__main__':
