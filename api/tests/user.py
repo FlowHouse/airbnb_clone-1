@@ -140,6 +140,16 @@ class UserTest(unittest.TestCase):
         list_test = self.app.get('/users/1')
         assert new_user.status_code == 200
 
+        #try unknown user
+        self.app.put('/users/2', data=dict(
+            first_name="first_name"
+        ))
+        response = self.app.get('/users/2').data
+        try:
+            json.loads(response)
+        except:
+            return "user ID not linked to a user"
+
 
 if __name__ == '__main__':
     unittest.main()
