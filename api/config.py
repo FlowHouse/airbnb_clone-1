@@ -31,7 +31,7 @@ def setenv(env):
         },
         'test'          : {
             'debug'     : False,
-            'host'      : 'localhost',
+            'host'      : '127.0.0.1',
             'port'      : 5555,
             'user'      : 'airbnb_user_test',
             'db'        : 'airbnb_test',

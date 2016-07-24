@@ -26,49 +26,32 @@ class UserTest(unittest.TestCase):
         # os.close(self.app)
 
 	# func to create user for testing purposes
-	# def create_user(self, first, last, email, pwd):
-	# 	# uses post to add a user to the User table
-	# 	return self.app.post('/users', data=dict (
-    #         first_name=first,
-    #         last_name=last,
-    #         email=email,
-    #         password=pwd
-    #     ))
+	def create_user_test(self, first, last, email, pwd):
+		# uses post to add a user to the User table
+		return self.app.post('/users', data=dict (
+            first_name=first,
+            last_name=last,
+            email=email,
+            password=pwd
+        ))
 
     #validate if the POST request => POST /users
     def test_create(self):
 		#create a user if all required parameters are sent
 		# TODO TODO TODO find out what goes in bottom TODO TODO TODO
 
-		#check the user ID
-		user1 = create_user()
-		self.assertEqual(user1, 1)
+		# req = self.create_user_test('first', 'last', 'email', 'pwd')
+		req = self.app.post('/users', data=dict (
+            first_name='first',
+            last_name='last',
+            email='email',
+            password='pwd'
+        ))
+		print req.status
+		assert req.status == '200'
 
-		#test all cases of missing parameters
+		assert User.get(User.id == 1).email == 'email'
 
-		#missing first_name
-		user2 = create_user()
-		self.assertEqual(user2, 2)
-
-		#missing last_name
-		user3 = create_user()
-		self.assertEqual(user3, 3)
-
-		#missing email
-		user4 = create_user()
-		self.assertEqual(user4, 4)
-
-		#missing password
-		user5 = create_user()
-		self.assertEqual(user5, 5)
-
-		#check if an user has unique email
-		unique_email_test = self.app.post('/users', data=dict(
-			first_name='first_name',
-			last_name='last_name',
-			email='email',
-			password='passwrod'
-		))
 		assert unique_email_test.status == 409
 
     #validate if the GET request => GET /users:
